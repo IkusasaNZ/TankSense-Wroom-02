@@ -5,7 +5,7 @@
 #include <WiFiClientSecure.h>
 
 #define TRIG_PIN 4  // GPIO4
-#define ECHO_PIN 5  // GPIO5
+#define ECHO_PIN 8  // GPIO5
 
 long duration;
 float distance;
@@ -25,6 +25,7 @@ void initWiFi() {
     delay(500);
     Serial.print(".");
   }
+
 
   Serial.println("\nConnected to WiFi");
 } 
@@ -96,7 +97,7 @@ void readDistance() {
   delayMicroseconds(10);
   digitalWrite(4, LOW);
 
-  long duration = pulseIn(5, HIGH, 30000);
+  long duration = pulseIn(8, HIGH, 30000);
   float distance = duration * 0.0343 / 2;
 
   if (duration == 0) {
@@ -110,7 +111,7 @@ void readDistance() {
 // Subroutine to initialize ultrasonic sensor pins
 void initUltrasonic() {
   pinMode(4, OUTPUT); // TRIG
-  pinMode(5, INPUT);  // ECHO
+  pinMode(8, INPUT);  // ECHO
 }
 
 
@@ -118,8 +119,8 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
-  // initwifiManager();
-  // initUltrasonic();
+  //initwifiManager();
+  //initUltrasonic();
   initWiFi();
 
 }
@@ -128,8 +129,8 @@ void setup() {
 void loop() {
 
   sendTankSenseData(); // Send data to webhook
-  // readDistance(); // Read and print distance
-  delay(30000); // Wait 5 minutes between measurements
+  //readDistance(); // Read and print distance
+  delay(3600000); // Wait 5 minutes between measurements
   
 }
 
